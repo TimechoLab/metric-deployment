@@ -27,11 +27,11 @@ if ! which grafana-server > /dev/null 2>&1; then
   exit
 fi
 
-if [ ! -n "$1" ]; then
+if [ -z "$1" ]; then
     echo "configNodeIps参数不能为空"
     exit
 fi
-if [ ! -n "$2" ]; then
+if [ -z "$2" ]; then
     echo "dataNodeIps不能为空"
     exit
 fi
@@ -46,8 +46,8 @@ confignodeIpPortListStr="[\"${confignodeIpsList}:9091\"]"
 datanodeIpsList=$(echo ${datanodeIpsStr//,/:9093\",\"})
 # 在前面插入["，在后面插入:9093"]
 datanodeIpPortListStr="[\"${datanodeIpsList}:9093\"]"
-echo confignodeIpPortListStr
-echo datanodeIpPortListStr
+echo "$confignodeIpPortListStr"
+echo "$datanodeIpPortListStr"
 
 echo "修改prometheus配置文件"
 PROMETHEUS_CONFIG_FILE="/etc/prometheus/prometheus.yml"
