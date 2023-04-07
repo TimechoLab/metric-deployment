@@ -80,8 +80,8 @@ GRAFANA_PROVISIONING_DIR="/etc/grafana/provisioning"
 echo "修改grafana-server配置文件"
 if ! cat $GRAFANA_CONFIG_FILE | grep "^provisioning" > /dev/null 2>&1; then
   echo "grafana provisioning配置未修改"
-  # 添加provisioning配置
-  sed -i '$a"provisioning"='"${GRAFANA_PROVISIONING_DIR}"'' $GRAFANA_CONFIG_FILE
+  # 修改注释的provisioning配置
+  sed -i 's#^;provisioning.*$#provisioning='"${GRAFANA_PROVISIONING_DIR}"'#g' $GRAFANA_CONFIG_FILE
 else
   echo "grafana provisioning配置已修改"
   # 修改未注释的provisioning
